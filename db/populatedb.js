@@ -1,13 +1,14 @@
 const { Client } = require('pg');
+require('dotenv').config();
 
 const SQL = `
-UPDATE categories SET items = 1 WHERE id =  19;
+SELECT * FROM categories;
 `;
 
 async function main() {
     console.log('seeding...');
     const client = new Client({
-        connectionString: 'postgresql://postgres:1234@localhost:5432/top_users'
+        connectionString: `postgresql://${process.env.db_user}:${process.env.password}@${process.env.host}:${process.env.port}/${process.env.db}`
     });
     await client.connect();
     const {rows} = await client.query(SQL);
