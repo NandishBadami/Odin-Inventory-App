@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <% if(locals.item_name) {%> 
+        <title>Edit Item</title>
+    <% } %>
+    <% if(!locals.item_name) { %>
+        <title>New Item</title>
+    <% } %>
+</head>
+<body>
+    <%- include('header.ejs') %>
+    <% if(locals.item_name) {%> 
+        <h1>Edit Item:</h1>
+    <% } %>
+    <% if(!locals.item_name) {%> 
+        <h1>Add New Item:</h1>
+    <% } %>
+    <% if(locals.error) { %>
+        <p style="color: red;"><%= error %></p>
+    <% } %>
+    <form method="post">
+        Item Name:
+        <% if(locals.item_name) {%> 
+            <input type="text" name="name" value="<%= item_name %>" required autofocus><br><br>
+        <% } %>
+        <% if(!locals.item_name) {%> 
+            <input type="text" name="name" required autofocus><br><br>
+        <% } %>
+        Quantity:
+        <% if(locals.item_name) {%> 
+            <input type="number" name="quantity" value="<%= item_quantity %>" required min="1" autofocus> <br><br>
+        <% } %>
+        <% if(!locals.item_name) {%>
+            <input type="number" name="quantity" required min="1" autofocus> <br><br>
+        <% } %>
+        Category:
+        <% if(locals.item_category_id) { %>
+            <Select required name="category_id">
+                <option value="">--select--</option>
+                <% categories.forEach(category => { %>
+                    <% if(locals.item_category_id == category.id) { %>
+                        <option value="<%= category.id %>" selected><%= category.name %></option>
+                    <% } %>
+                    <% if(locals.item_category_id != category.id) { %>
+                        <option value="<%= category.id %>"><%= category.name %></option>
+                    <% } %>
+                <% }); %>
+            </Select> <br><br>
+            Password: 
+            <input type="password" name="password" required>
+        <% } %>
+        <% if(!locals.item_category_id) { %>
+            <Select required name="category_id">
+                <option value="">--select--</option>
+                <% categories.forEach(category => { %>
+                    <option value="<%= category.id %>"><%= category.name %></option>
+                <% }); %>
+            </Select>
+        <% } %>
+        <br><br>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

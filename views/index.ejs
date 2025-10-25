@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory App</title>
+</head>
+<body>
+    <%- include('header.ejs') %>
+    <h1>Categories:</h1>
+    <a href="/new-category"><button>Add new Category</button></a>
+    <a href="/new-item"><button>Add new Item</button></a>
+    <% categories.forEach(category => { %>
+        <hr>
+        <h2><%= category.name %></h2>
+        <p>Items: <%= category.items %></p>
+        <a href="/categories/<%= category.id %>"><button>Open</button></a>
+        <a href="/delete-category/<%= category.id %>"><button>Delete</button></a>
+        <a href="update-category/<%= category.id %>"><button>Edit</button></a>
+        <hr>
+    <% }); %>
+</body>
+</html>
