@@ -6,7 +6,7 @@ async function getAllCategories() {
 }
 
 async function getAllItemsOfCategory(id) {
-    const {rows} = await pool.query('SELECT * FROM items WHERE category_id = $1', [id]);
+    const {rows} = await pool.query('SELECT * FROM items WHERE category_id = $1 ORDER BY id', [id]);
     const category = await pool.query('SELECT name FROM categories WHERE id = $1', [id]);
     if(category.rows.length > 0) return [rows, category.rows[0].name];
     return [undefined, undefined];
